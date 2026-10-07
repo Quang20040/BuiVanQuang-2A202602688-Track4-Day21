@@ -1,0 +1,25 @@
+run_index,latency_ms,cpu,ram_gb,os
+1,15.547,AMD Ryzen 7 5800H,16,Windows 11
+2,16.65,AMD Ryzen 7 5800H,16,Windows 11
+3,15.347,AMD Ryzen 7 5800H,16,Windows 11
+4,15.719,AMD Ryzen 7 5800H,16,Windows 11
+5,16.336,AMD Ryzen 7 5800H,16,Windows 11
+6,15.721,AMD Ryzen 7 5800H,16,Windows 11
+7,16.207,AMD Ryzen 7 5800H,16,Windows 11
+8,19.154,AMD Ryzen 7 5800H,16,Windows 11
+9,16.218,AMD Ryzen 7 5800H,16,Windows 11
+10,17.544,AMD Ryzen 7 5800H,16,Windows 11
+11,16.943,AMD Ryzen 7 5800H,16,Windows 11
+12,14.848,AMD Ryzen 7 5800H,16,Windows 11
+13,15.038,AMD Ryzen 7 5800H,16,Windows 11
+14,14.913,AMD Ryzen 7 5800H,16,Windows 11
+15,21.275,AMD Ryzen 7 5800H,16,Windows 11
+16,14.758,AMD Ryzen 7 5800H,16,Windows 11
+17,15.156,AMD Ryzen 7 5800H,16,Windows 11
+18,15.885,AMD Ryzen 7 5800H,16,Windows 11
+19,14.673,AMD Ryzen 7 5800H,16,Windows 11
+20,14.454,AMD Ryzen 7 5800H,16,Windows 11
+21,15.53,AMD Ryzen 7 5800H,16,Windows 11
+22,15.992,AMD Ryzen 7 5800H,16,Windows 11
+23,15.333,AMD Ryzen 7 5800H,16,Windows 11
+24,14.457,AMD Ryzen 7 5800H,16,Windows 11

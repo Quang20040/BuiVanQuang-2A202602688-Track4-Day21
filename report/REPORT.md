@@ -42,10 +42,20 @@ Use-case cụ thể (ADAS / robot / drone), trade-off và bước tiếp theo.
 
 ## 5. Cách chạy lại
 
-Các lệnh tái tạo lại toàn bộ kết quả từ repo sạch.
+Các lệnh tái tạo lại toàn bộ kết quả từ repo sạch:
 
 ```bash
-[ĐIỀN]
+# 1. Tự kiểm tra 2 hàm velo_to_cam và cam_to_image
+python -m src.test_projection
+
+# 2. Tạo ảnh demo baseline overlay trên KITTI mini (frame 000011, 000008, 000049)
+python -m starter.projection --data-root data/kitti_mini --frame 000011
+python -m starter.projection --data-root data/kitti_mini --frame 000008
+python -m starter.projection --data-root data/kitti_mini --frame 000049
+
+# 3. Chạy demo trên dữ liệu synthetic và nuScenes
+python -m starter.projection --data-root data/synthetic --frame 000000
+python -m starter.projection --data-root data/nuscenes_mini_subset --frame scene-0103_010
 ```
 
 ## 6. Khai báo sử dụng AI

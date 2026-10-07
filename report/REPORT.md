@@ -18,13 +18,20 @@ Lệch góc xoay yaw 1° làm tỉ lệ điểm LiDAR của người đi bộ (v
 
 ## 2. Evidence
 
-Bảng hoặc plot số liệu, kèm ảnh/video demo. Ghi rõ đường dẫn file trong `results/`.
+Kết quả quét góc lệch yaw từ 0.0° đến 3.0° trên 3 tình huống tiêu biểu của `data/kitti_mini` (chi tiết tại `results/yaw_perturb_sweep.csv`):
 
-| Cấu hình / mức perturb | Metric 1 | Metric 2 | Ghi chú |
-|---|---|---|---|
-| [ĐIỀN] | | | |
+| Mức lệch Yaw | Frame 000008 (Đông xe) | Frame 000011 (Nhiều người đi bộ) | Frame 000049 (Bị che khuất) | Nhận xét chi tiết |
+|:---:|:---:|:---:|:---:|---|
+| **0.0°** | 99.63% | 99.45% (Ped: 99.67%) | 99.25% | Baseline chuẩn của calibration gốc |
+| **0.5°** | 99.57% | 91.88% (Ped: 85.67%) | 97.46% | Người đi bộ bắt đầu sụt giảm rõ |
+| **1.0°** | 98.62% | 77.44% (Ped: 61.89%) | 93.50% | Frame 000011 giảm 22.01%, Ped giảm 37.78% |
+| **2.0°** | 94.81% | 45.44% (Ped: 21.17%) | 84.74% | Hơn một nửa số điểm người đi bộ rơi ra ngoài |
+| **3.0°** | 90.98% | 21.23% (Ped: 5.21%) | 74.32% | Hầu như mất dấu hoàn toàn người đi bộ |
 
-![demo](../results/figures/[ĐIỀN].png)
+![yaw sweep](../results/figures/yaw_sweep.png)
+
+- **Phân tích số liệu:** Lệch yaw 1.0° làm điểm LiDAR trượt ngang trên ảnh xấp xỉ $\Delta u \approx f \cdot \tan(1^\circ) \approx 721.5 \cdot 0.01745 \approx 12.6$ pixel. Với người đi bộ ở cự ly 15–30 m chỉ rộng khoảng 15–20 pixel trên ảnh, độ trượt 12.6 pixel khiến tỉ lệ điểm trong box của người đi bộ giảm sâu từ 99.67% xuống 61.89% (giảm > 37 điểm phần trăm). Trong khi đó, với ô tô con rộng 60–120 pixel, độ trượt này chỉ làm sụt giảm 1.01% ở frame 000008 (giữ 98.62%).
+- **Ngưỡng phát hiện:** Nếu thiết lập ngưỡng cảnh báo sớm tại `hit_ratio < 80%`, hệ thống có thể phát hiện ngay lỗi lệch yaw từ 1.0° trở lên trên các frame có đối tượng hẹp (người đi bộ) mà không bị báo động giả ở trạng thái chuẩn (baseline > 99%).
 
 ## 3. Failure case
 
@@ -56,6 +63,12 @@ python -m starter.projection --data-root data/kitti_mini --frame 000049
 # 3. Chạy demo trên dữ liệu synthetic và nuScenes
 python -m starter.projection --data-root data/synthetic --frame 000000
 python -m starter.projection --data-root data/nuscenes_mini_subset --frame scene-0103_010
+
+# 4. Chạy thí nghiệm quét góc lệch yaw (CP3 benchmark)
+python -m src.exp_yaw_sweep --data-root data/kitti_mini --frames 000008 000011 000049
+
+# 5. Vẽ biểu đồ phân tích thí nghiệm yaw sweep
+python -m src.plot_yaw_sweep
 ```
 
 ## 6. Khai báo sử dụng AI

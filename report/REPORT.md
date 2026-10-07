@@ -1,4 +1,4 @@
-# Báo cáo Day 6: [ĐIỀN tên đề tài ngắn]
+# Báo cáo Day 6: Độ nhạy của projection với lệch yaw
 
 > Thay **mọi** ô có chữ ĐIỀN nằm trong ngoặc vuông bằng nội dung của bạn, xoá luôn cả dấu ngoặc vuông. Lệnh `python tools/check_submission.py` sẽ báo FAIL nếu còn sót bất kỳ chỗ nào.
 
@@ -6,17 +6,15 @@
 - **MSSV:** 2A202602688
 - **Lớp:** AI20K-T4
 - **Link repo:** https://github.com/Quang20040/BuiVanQuang-2A202602688-Track4-Day21
-- **Topic:** [ĐIỀN một chữ cái A/B/C/D/E/F] — [ĐIỀN tên topic]
-- **Dataset:** [ĐIỀN một hoặc nhiều trong: data/synthetic, data/kitti_mini, data/nuscenes_mini_subset, log riêng]
-- **Các frame đã dùng:** [ĐIỀN danh sách frame id, ví dụ 000011, 000049 hoặc scene-0103_010]
+- **Topic:** A — LiDAR-camera projection QA
+- **Dataset:** data/kitti_mini
+- **Các frame đã dùng:** 000008, 000011, 000049
 
 > Hãy viết ngắn: mỗi mục từ 3 đến 8 dòng, ưu tiên số liệu và hình ảnh.
 
 ## 1. Claim
 
-Một câu khẳng định kỹ thuật có thể kiểm chứng. Ví dụ: *"Lệch yaw 1° làm 12% điểm LiDAR rơi ra khỏi vật thể ở 30 m, phát hiện được bằng edge-alignment score với ngưỡng X."*
-
-[ĐIỀN]
+Lệch góc xoay yaw 1° làm tỉ lệ điểm LiDAR của người đi bộ (vật thể hẹp ở cự ly 15–30 m) rơi đúng vào 2D box giảm hơn 20 điểm phần trăm, trong khi đối với xe ô tô (vật thể rộng) chỉ giảm dưới 5 điểm phần trăm; hiện tượng calibration drift này có thể được định lượng và phát hiện thông qua bounding-box point alignment score.
 
 ## 2. Evidence
 

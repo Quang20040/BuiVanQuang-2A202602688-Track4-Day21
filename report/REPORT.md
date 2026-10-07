@@ -35,11 +35,15 @@ Kết quả quét góc lệch yaw từ 0.0° đến 3.0° trên 3 tình huống 
 
 ## 3. Failure case
 
-Nêu khi nào hệ thống hoặc phương pháp fail, vì sao fail, và liên hệ tới lớp nào trong 6 lớp debug: I/O, Geometry, Time, Preprocess, Model, Metric.
+![failure](../results/figures/fail_01_nusc_no_ego_motion.png)
 
-![failure](../results/figures/fail_[ĐIỀN].png)
+- **Trường hợp:** nuScenes, frame `scene-0103_010`, chiếu LiDAR lên camera trước khi tắt cơ chế bù chuyển động xe (`--ignore-ego-motion`).
+- **Quan sát:** Số điểm chiếu lọt vào ảnh giảm từ 3120 điểm xuống 2911 điểm (mất 209 điểm, giảm 6.7%). Các điểm LiDAR trên thân xe phía trước và biển báo ở gần bị trượt lệch vị trí so với hình ảnh thực tế của camera.
+- **Nguyên nhân:** Camera trước chụp sớm hơn LiDAR 35.6 ms. Khi xe di chuyển với tốc độ đô thị 36 km/h (10 m/s), trong 35.6 ms xe đã di chuyển được một quãng đường $\Delta d \approx 0.36$ m. Nếu không dùng ego pose để bù chuyển động này (deskew), toạ độ các điểm LiDAR ở gần sẽ bị lệch lớn trên ảnh.
+- **Lớp debug:** **Time (Thời gian & Đồng bộ cảm biến)**.
+- **Cách phát hiện khi chạy thật:** Theo dõi độ chênh lệch timestamp giữa các cảm biến ($\Delta t = |t_{\text{cam}} - t_{\text{lidar}}|$). Cảnh báo nếu $\Delta t > 10$ ms mà xe đang di chuyển với vận tốc $v > 5$ km/h mà không có module deskew bằng IMU/Odom hoạt động.
 
-[ĐIỀN]
+*(Tham khảo thêm: [fail_02_yaw_2deg_pedestrian.png](../results/figures/fail_02_yaw_2deg_pedestrian.png) minh hoạ lỗi lớp **Geometry** khi lệch yaw 2.0° làm 78.8% điểm của người đi bộ trượt khỏi 2D box).*
 
 ## 4. Khuyến nghị nếu triển khai thật
 
@@ -69,6 +73,9 @@ python -m src.exp_yaw_sweep --data-root data/kitti_mini --frames 000008 000011 0
 
 # 5. Vẽ biểu đồ phân tích thí nghiệm yaw sweep
 python -m src.plot_yaw_sweep
+
+# 6. Tạo ảnh phân tích các failure cases (CP4)
+python -m src.generate_failure_cases
 ```
 
 ## 6. Khai báo sử dụng AI
